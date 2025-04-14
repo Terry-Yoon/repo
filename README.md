@@ -10,4 +10,4 @@ Hi, I'm Mona. You might recognize me as GitHub's mascot.
 |     3| SQL       |
 </details>
 ---
->QUATA
+>QUOTA
