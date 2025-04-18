@@ -1,15 +1,19 @@
+name: CI
 on:
-  workflow_dispatch:
-    inputs:
-      chosen-os:
-        required: true
-        type: choice
-        options:
-        - Ubuntu
-        - macOS
-
+  push:
+    branches: [ main ]
 jobs:
-  test:
-    runs-on: [self-hosted, "${{ inputs.chosen-os }}"]
+  container-test-job:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18
+      env:
+        NODE_ENV: development
+      ports:
+        - 80
+      volumes:
+        - my_docker_volume:/volume_mount
+      options: --cpus 1
     steps:
-    - run: echo Hello world!
+      - name: Check for dockerenv file
+        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv
