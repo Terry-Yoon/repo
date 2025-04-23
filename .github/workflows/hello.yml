@@ -1,0 +1,29 @@
+name: Hello World Webpage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Create "Hello World" Webpage
+        run: |
+          echo "const http = require('http');" > server.js
+          echo "http.createServer((req, res) => {" >> server.js
+          echo "res.writeHead(200, {'Content-Type': 'text/html'});" >> server.js
+          echo "res.end('<h1>Hello World!</h1>');" >> server.js
+          echo "}).listen(3000);" >> server.js
+
+      - name: Run Web Server
+        run: node server.js
